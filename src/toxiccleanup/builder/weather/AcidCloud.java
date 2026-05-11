@@ -31,6 +31,13 @@ public class AcidCloud extends Cloud implements Damaging {
         super(position);
     }
 
+    /**
+     *
+     * @param state The state of the engine, including the mouse, keyboard information and
+     *              dimension. Useful for processing keyboard presses or mouse movement.
+     * @param game  The state of the game, including the player and world. Can be used to query or
+     *              update the game state.
+     */
     @Override
     public void tick(EngineState state, GameState game) {
         super.tick(state, game);

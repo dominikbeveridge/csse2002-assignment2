@@ -70,8 +70,10 @@ public class Cloud extends GameEntity implements Obscuring {
         return art;
     }
 
-    /*
-    Updates the current frame of the sprite.
+    /**
+     * Updates the current frame of the sprite while ensuring that the frame is within bounds
+     * @param frame the current frame. Any values greater than the animation range are limited to the
+     *              max number of frames in the sprite group
      */
     public void updateArtFrame(int frame) {
 
