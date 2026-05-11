@@ -17,12 +17,14 @@ public interface Damageable {
     boolean isDamaged();
 
     /**
-     * Sets the Damageable Object to it's damaged state.
+     * Sets the Damageable Object to its damaged state.
+     *
+     * @param dmg The damage being applied to the damageable object
      */
     void setDamage(Damage dmg);
 
     /**
-     * Sets the Damageable Object to it's undamaged
+     * Sets the Damageable Object to its undamaged state
      */
     void repairDamage();
 }
