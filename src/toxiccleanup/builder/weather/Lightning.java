@@ -40,10 +40,10 @@ public class Lightning extends GameEntity implements Damaging {
     public Lightning(Positionable position) {
         super(position);
 
-        setSprite(art.getSprite("1"));
+        setSprite(art.getSprite(String.valueOf(animFrame)));
 
         finalAnimFrameIndex = art.getSprites().size() - 1;
-        int ANIM_TICK_INTERVAL = ((int) (double) (LIFESPAN / finalAnimFrameIndex));
+        final int ANIM_TICK_INTERVAL = ((int) (double) (LIFESPAN / finalAnimFrameIndex));
         animTimer = new RepeatingTimer(ANIM_TICK_INTERVAL);
     }
 
@@ -102,9 +102,9 @@ public class Lightning extends GameEntity implements Damaging {
      */
     private void updateArt() {
         animFrame += 1;
-        if (animFrame > finalAnimFrameIndex) { //reset our animation back to the start
-            animFrame = finalAnimFrameIndex;
+        if (animFrame > finalAnimFrameIndex) {
+            animFrame = 1;
         }
-        setSprite(art.getSprite(animFrame + ""));
+        setSprite(art.getSprite(String.valueOf(animFrame)));
     }
 }
