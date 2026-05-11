@@ -26,21 +26,13 @@ public class Cloud extends GameEntity implements Obscuring {
     final private static int SPEED = 2;
     final private TickTimer timer;
     private int currentArtFrame = 1;
-    private int maxFrames = 5;
+    private final int maxFrames = art.getSprites().size();
     private final TickTimer animTimer = new RepeatingTimer(12);
-
-    public Cloud(Positionable position, TickTimer timer) {
-        super(position);
-        this.timer = timer;
-        this.maxFrames = art.getSprites().size();
-        setSprite(art.getSprite(currentArtFrame + ""));
-    }
 
     public Cloud(Positionable position) {
         super(position);
         this.timer = new RepeatingTimer(Cloud.MOVEMENT_TIME);
-        this.maxFrames = art.getSprites().size();
-        setSprite(art.getSprite(currentArtFrame + ""));
+        setSprite(art.getSprite(String.valueOf(currentArtFrame)));
     }
 
     /**
@@ -56,11 +48,9 @@ public class Cloud extends GameEntity implements Obscuring {
 
         if (this.animTimer.isFinished()) {
             currentArtFrame += 1;
-            if (currentArtFrame > maxFrames) {
-                currentArtFrame = maxFrames;
-            }
+            currentArtFrame = Integer.min(currentArtFrame, maxFrames);
         }
-        setSprite(art.getSprite(currentArtFrame + ""));
+        setSprite(art.getSprite(String.valueOf(currentArtFrame)));
 
         this.timer.tick();
         if (this.timer.isFinished()) {
@@ -68,11 +58,7 @@ public class Cloud extends GameEntity implements Obscuring {
             this.setX(movement);
             if (this.getX() < 0) {
                 this.markForRemoval();
-            } else {
-                //do nothing
             }
-        } else {
-            //do nothing
         }
     }
 }
