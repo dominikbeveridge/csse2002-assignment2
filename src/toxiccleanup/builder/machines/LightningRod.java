@@ -82,9 +82,9 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     }
 
     /**
-     * Returns if this damageable Object is or is not in its damaged state.
+     * Returns if the LightningRod is or is not in its damaged state.
      *
-     * @return if this damageable Object is or is not in its damaged state.
+     * @return if the LightningRod is or is not in its damaged state.
      */
     @Override
     public boolean isDamaged() {
@@ -92,7 +92,7 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     }
 
     /**
-     * Sets the Damageable Object to its damaged state.
+     * Sets the LightningRod and its sprite to the damaged state
      */
     @Override
     public void setDamage(Damage dmg) {
@@ -101,7 +101,7 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     }
 
     /**
-     * Sets the Damageable Object to its undamaged state
+     * Sets the LightningRod and its sprite to the undamaged state
      */
     @Override
     public void repairDamage() {
