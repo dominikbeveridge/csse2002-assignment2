@@ -25,7 +25,9 @@ public class DamageHandler implements Damageable {
     }
 
     /**
-     * Sets the Damageable Object to it's damaged state.
+     * Sets the Damageable Object to its damaged state.
+     *
+     * @param dmg The damage being applied to the damageable object
      */
     @Override
     public void setDamage(Damage dmg) {
@@ -33,7 +35,7 @@ public class DamageHandler implements Damageable {
     }
 
     /**
-     * Sets the Damageable Object to it's undamaged
+     * Sets the Damageable Object to its undamaged state.
      */
     @Override
     public void repairDamage() {
