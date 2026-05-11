@@ -29,6 +29,11 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     private final DamageHandler damageHandler;
     private static final char USE_KEY = 'e';
 
+    /**
+     * Constructs a new instance of the LightningRod class at the provided position with the
+     * default sprite
+     * @param position the position of the LightningRod
+     */
     public LightningRod(Positionable position) {
         super(position);
         this.setSprite(art.getSprite("default"));
@@ -48,13 +53,11 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
         final Weather weather = game.getWeather();
         final Damage dmg = weather.getDamage(state.getDimensions(), this.getPosition());
         if (dmg != null && !(dmg instanceof LightningDamage)) {
-            this.damageHandler.setDamage(dmg);
+            this.setDamage(dmg);
         }
         if (this.isDamaged()) {
-            setSprite(art.getSprite("damaged"));
-            return; //exit early the machine is damaged!
+            return;
         }
-        setSprite(art.getSprite("default"));
         weather.applyLightningRod(this.getPosition());
     }
 
@@ -71,10 +74,10 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     @Override
     public void playerOver(EngineState state, GameState game) {
         if (!state.getKeys().isDown(USE_KEY)) {
-            return; //we can exit early if no use happening
+            return;
         }
-        if (this.damageHandler.isDamaged()) {
-            this.damageHandler.repairDamage();
+        if (this.isDamaged()) {
+            this.repairDamage();
         }
     }
 
@@ -89,18 +92,20 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     }
 
     /**
-     * Sets the Damageable Object to it's damaged state.
+     * Sets the Damageable Object to its damaged state.
      */
     @Override
     public void setDamage(Damage dmg) {
+        setSprite(art.getSprite("damaged"));
         this.damageHandler.setDamage(dmg);
     }
 
     /**
-     * Sets the Damageable Object to it's undamaged
+     * Sets the Damageable Object to its undamaged state
      */
     @Override
     public void repairDamage() {
+        setSprite(art.getSprite("default"));
         this.damageHandler.repairDamage();
 
     }
