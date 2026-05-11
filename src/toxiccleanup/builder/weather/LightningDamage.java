@@ -7,14 +7,11 @@ import toxiccleanup.builder.Damage;
  * Lightning Type Damage. Specifically does not deal damage to lightning rods.
  */
 public class LightningDamage extends Damage {
-    public static final String TYPE = "lightning";
-
     /**
      * Constructs an instance of LightningDamage at the specified position
      * @param position the position to spawn the LightningDamage at
      */
     public LightningDamage(Positionable position) {
         super(position);
-        this.setType(TYPE);
     }
 }

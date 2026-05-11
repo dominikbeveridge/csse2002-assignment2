@@ -5,21 +5,13 @@ import toxiccleanup.engine.game.Positionable;
 public class Damage implements Positionable {
     private int x = 0;
     private int y = 0;
-    public static final String UNTYPED = "untyped";
-    private String type = UNTYPED;
 
     public Damage(Positionable position) {
         this.x = position.getX();
         this.y = position.getY();
     }
 
-    public void setType(String value) {
-        this.type = value;
-    }
 
-    public String getType() {
-        return type;
-    }
 
     /**
      * Returns the horizontal (x-axis) coordinate of the component.

@@ -47,7 +47,7 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
 
         final Weather weather = game.getWeather();
         final Damage dmg = weather.getDamage(state.getDimensions(), this.getPosition());
-        if (dmg != null && !dmg.getType().equals(LightningDamage.TYPE)) {
+        if (dmg != null && !(dmg instanceof LightningDamage)) {
             this.damageHandler.setDamage(dmg);
         }
         if (this.isDamaged()) {
