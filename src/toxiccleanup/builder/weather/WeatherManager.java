@@ -1,6 +1,7 @@
 package toxiccleanup.builder.weather;
 
 import toxiccleanup.engine.EngineState;
+import toxiccleanup.engine.game.Entity;
 import toxiccleanup.engine.game.Positionable;
 import toxiccleanup.engine.renderer.Dimensions;
 import toxiccleanup.engine.renderer.Renderable;
@@ -40,10 +41,10 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Add the given spawnPoint to the weather manager for it to handle ticking it and
-     * any other game logic.
+     * Adds the given spawnPoint to the WeatherManager to handle ticking and
+     * other game logic.
      *
-     * @param spawnPoint - spawn point we wish top use
+     * @param spawnPoint - the spawn point to add
      */
     public void addSpawnPoint(WeatherSpawnPoint spawnPoint) {
         spawnPoints.add(spawnPoint);
@@ -59,17 +60,17 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Return if the given title location should be currently obscured by the
+     * Checks if the given tile location is currently obscured by the
      * internal weather system.
      *
-     * @param dimensions - screen and tile dimensions
-     * @param position   - position requesting for the obscured status of
-     * @return if the given title location should be currently obscured by the
-     * internal weather system.
+     * @param dimensions - the dimensions of the game window, used to calculate tile
+     *                   positions
+     * @param position   - the position of the tile
+     * @return true if the given title location is currently obscured by the
+     * internal weather system and false otherwise.
      */
     @Override
     public boolean isObscuring(Dimensions dimensions, Positionable position) {
-        //work out the grid we are checking against
         int gridX = dimensions.pixelToTile(position.getX());
         int gridY = dimensions.pixelToTile(position.getY());
 
@@ -85,16 +86,16 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Return {@link Damage} the given tile location is currently experiencing otherwise
-     * returns null.
+     * Returns the {@link Damage} that the given tile location is currently experiencing.
+     * If there is no damage it returns null.
      *
-     * @param dimensions - screen and tile dimensions
-     * @param position   - position requesting for the damage status of
-     * @return {@link Damage} the given tile location is currently experiencing otherwise
-     * returns null.
+     * @param dimensions - the dimensions of the game window, used to calculate tile
+     *                   positions.
+     * @param position   - the position of the tile
+     * @return {@link Damage} the given tile location is currently experiencing, or null if there
+     * is no damage.
      */
     public Damage getDamage(Dimensions dimensions, Positionable position) {
-        //work out the grid we are checking against
         int gridX = dimensions.pixelToTile(position.getX());
         int gridY = dimensions.pixelToTile(position.getY());
 
@@ -115,15 +116,15 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Return if the given tile location is experiencing damaging conditions.
+     * Checks if the given tile location is being damaged.
      *
-     * @param dimensions - screen and tile dimensions
-     * @param position   - position requesting for the damage status of
-     * @return if the given tile location is experiencing damaging conditions.
+     * @param dimensions - the dimensions of the game window, used to calculate tile
+     *                        positions.
+     * @param position   - the position of the tile
+     * @return true if the given tile location is being damaged, false otherwise
      */
     @Override
     public boolean isDamaging(Dimensions dimensions, Positionable position) {
-        //work out the grid we are checking against
         int gridX = dimensions.pixelToTile(position.getX());
         int gridY = dimensions.pixelToTile(position.getY());
 
@@ -139,23 +140,23 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Receives the position of a {@link LightningRod} and adjusts the weather system accordingly.
-     * Moves any {@link Lightning} that are within the radius {@value LightningRod#RADIUS}
-     * of the given position to the given position.
+     * Adjusts the weather system according to the provided {@link LightningRod} position.
+     * Moves any {@link Lightning} that are within the LightningRod radius {@value LightningRod#RADIUS}
+     * to the given position.
      *
-     * @param position - position of the lightning rod that the weather should be adjusted for.
+     * @param position - position of the LightningRod
      */
     @Override
     public void applyLightningRod(Positionable position) {
         for (GameEntity weather : phenomena) {
             if (weather instanceof Lightning) {
-                final Lightning bolt = (Lightning) weather;
-                int deltaX = position.getX() - bolt.getX();
-                int deltaY = position.getY() - bolt.getY();
+                final Lightning lightning = (Lightning) weather;
+                int deltaX = position.getX() - lightning.getX();
+                int deltaY = position.getY() - lightning.getY();
                 final int distance = (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
                 if (distance <= LightningRod.RADIUS) {
-                    bolt.setX(position.getX());
-                    bolt.setY(position.getY());
+                    lightning.setX(position.getX());
+                    lightning.setY(position.getY());
                 }
             }
         }
@@ -163,12 +164,11 @@ public class WeatherManager implements Weather {
     }
 
     /**
-     * Advances component state by one game tick using engine and game context.
+     * Advances the state of the WeatherManager by one game tick
      *
      * @param state The state of the engine, including the mouse, keyboard information and
-     *              dimension. Useful for processing keyboard presses or mouse movement.
-     * @param game  The state of the game, including the player and world. Can be used to query or
-     *              update the game state.
+     *              dimension.
+     * @param game  The state of the game, including the player and world.
      */
     @Override
     public void tick(EngineState state, GameState game) {
@@ -188,20 +188,14 @@ public class WeatherManager implements Weather {
      */
     @Override
     public List<Renderable> render() {
-        final ArrayList<Renderable> renderables = new ArrayList<>();
-        renderables.addAll(phenomena);
-        return renderables;
+        return new ArrayList<>(phenomena);
     }
 
     /**
-     * Cleanup and removes any weather phenomena that have been marked for removal.
+     * Removes any weather phenomena that have been marked for removal.
      */
     private void cleanup() {
-        for (int i = phenomena.size() - 1; i >= 0; i -= 1) {
-            if (phenomena.get(i).isMarkedForRemoval()) {
-                phenomena.remove(i);
-            }
-        }
+        phenomena.removeIf(Entity::isMarkedForRemoval);
     }
 
     /**
@@ -211,12 +205,8 @@ public class WeatherManager implements Weather {
      */
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("WeatherManager:[\n");
-        sb.append("Phenomena:" + phenomena.size() + "\n");
-        sb.append("SpawnPoints:" + spawnPoints.size() + "\n");
-        sb.append("]\n");
-        return sb.toString();
+        return "WeatherManager:[\n" + "Phenomena:" + phenomena.size() + "\n" + "SpawnPoints:"
+                + spawnPoints.size() + "\n" + "]\n";
     }
 
 }

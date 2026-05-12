@@ -15,7 +15,7 @@ public class WeatherBuilder {
      *
      * @param dimensions - the dimensions of the game window, used to calculate tile
      *      *                   positions and place entities on the grid.
-     * @param text - the x,y locations and symbols for placing
+     * @param text - the x and y positions, and symbols for placing
      *      *                   the various {@link WeatherSpawnPoint}s
      * @return the Weather with {@link WeatherSpawnPoint}s added according to the filepath and
      * dimensions
