@@ -11,6 +11,16 @@ import java.util.List;
 
 
 public class WeatherBuilder {
+    /**
+     *
+     * @param dimensions - the dimensions of the game window, used to calculate tile
+     *      *                   positions and place entities on the grid.
+     * @param text - the x,y locations and symbols for placing
+     *      *                   the various {@link WeatherSpawnPoint}s
+     * @return the Weather with {@link WeatherSpawnPoint}s added according to the filepath and
+     * dimensions
+     * @throws WorldLoadException
+     */
     public static Weather fromString(Dimensions dimensions, String text) throws WorldLoadException {
         final Weather weather = new WeatherManager();
         int numberOfTiles = dimensions.windowSize() / dimensions.tileSize();
@@ -63,12 +73,12 @@ public class WeatherBuilder {
      *  <li> {@link Lightning} </li>
      * </ul>
      *
-     * @param dimensions - world dimensions, used for placing of spawners in relation to
-     *                   said dimensions.
-     * @param filepath   - path to a file holding the desired x,y locations and type for placing our
-     *                   various {@link WeatherSpawnPoint}s
-     * @return our newly Weather, with {@link WeatherSpawnPoint} added and ready for use in the
-     * game.
+     * @param dimensions - the dimensions of the game window, used to calculate tile
+     *                   positions and place entities on the grid.
+     * @param filepath   - the path to the file holding the x,y locations and symbols for placing
+     *                   the various {@link WeatherSpawnPoint}s
+     * @return the Weather with {@link WeatherSpawnPoint}s added according to the filepath and
+     * dimensions
      * @throws IOException
      * @throws WorldLoadException
      */
