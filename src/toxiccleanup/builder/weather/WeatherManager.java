@@ -205,8 +205,10 @@ public class WeatherManager implements Weather {
      */
     @Override
     public String toString() {
-        return "WeatherManager:[\n" + "Phenomena:" + phenomena.size() + "\n" + "SpawnPoints:"
-                + spawnPoints.size() + "\n" + "]\n";
+        return "WeatherManager:[\n"
+                + "Phenomena:" + phenomena.size() + "\n"
+                + "SpawnPoints:" + spawnPoints.size() + "\n"
+                + "]\n";
     }
 
 }
