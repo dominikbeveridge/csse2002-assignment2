@@ -22,6 +22,7 @@ import toxiccleanup.builder.SpriteGallery;
  */
 public class AcidCloud extends Cloud implements Damaging {
     private static final SpriteGroup art = SpriteGallery.acidcloud;
+    final public static int SPAWN_TIME = 300;
 
     /**
      * Constructs an instance of the AcidCloud at the given position.

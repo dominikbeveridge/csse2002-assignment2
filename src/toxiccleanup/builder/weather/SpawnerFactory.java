@@ -2,6 +2,7 @@ package toxiccleanup.builder.weather;
 
 import toxiccleanup.engine.game.Positionable;
 import toxiccleanup.engine.timing.RepeatingTimer;
+import toxiccleanup.engine.timing.TickTimer;
 
 /**
  * <p>Handles creating {@link WeatherSpawnPoint}s at a given position,
@@ -22,63 +23,62 @@ import toxiccleanup.engine.timing.RepeatingTimer;
  * </p>
  */
 public class SpawnerFactory {
+    /**
+     * Creates a WeatherSpawnPoint at the given position according to the symbol
+     *
+     * @param position The position to create the WeatherSpawnPoint at
+     * @param symbol The symbol corresponding to the weather type
+     * @return a WeatherSpawnPoint at the given position and type
+     */
+    private static final char CLOUD_SYMBOL = 'c';
+    private static final char RAINCLOUD_SYMBOL = 'r';
+    private static final char ACIDCLOUD_SYMBOL = 'a';
+    private static final char LIGHTNING_SYMBOL = 'l';
+    private static final char EMPTY_SYMBOL = '_';
+    private static final double UPPER_MODIFIER = 5.5;
+    private enum WeatherType  {
+        CLOUD,
+        RAINCLOUD,
+        ACIDCLOUD,
+        LIGHTNING,
+    }
+    private static WeatherType parseWeatherType(char symbol) {
+        return switch (Character.toLowerCase(symbol)) {
+            case CLOUD_SYMBOL -> WeatherType.CLOUD;
+            case RAINCLOUD_SYMBOL -> WeatherType.RAINCLOUD;
+            case ACIDCLOUD_SYMBOL -> WeatherType.ACIDCLOUD;
+            case LIGHTNING_SYMBOL -> WeatherType.LIGHTNING;
+            default -> throw new IllegalArgumentException("Symbol does not represent a tile.");
+        };
+
+    }
     public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol) {
-        WeatherSpawnPoint result = null;
-        if (symbol == 'c') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer(Cloud.SPAWN_TIME),
-                    (Positionable pos) -> new Cloud(pos)
-            );
-        } else if (symbol == 'C') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer((int) (Cloud.SPAWN_TIME * 5.5)),
-                    (Positionable pos) -> new Cloud(pos)
-            );
-        } else if (symbol == 'r') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer(RainCloud.SPAWN_TIME),
-                    (Positionable pos) -> new RainCloud(pos)
-            );
-        } else if (symbol == 'R') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer((int) (RainCloud.SPAWN_TIME * 5.5)),
-                    (Positionable pos) -> new RainCloud(pos)
-            );
-        } else if (symbol == 'a') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer(Cloud.SPAWN_TIME),
-                    (Positionable pos) -> new AcidCloud(pos)
-            );
-        } else if (symbol == 'A') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer((int) (AcidCloud.SPAWN_TIME * 5.5)),
-                    (Positionable pos) -> new AcidCloud(pos)
-            );
-        } else if (symbol == 'l') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer(Lightning.SPAWN_TIME),
-                    (Positionable pos) -> new Lightning(pos)
-            );
-        } else if (symbol == 'L') {
-            result = new WeatherSpawnPoint(
-                    position,
-                    new RepeatingTimer((int) (Lightning.SPAWN_TIME * 5.5)),
-                    (Positionable pos) -> new Lightning(pos)
-            );
-        } else if (symbol == '_') {
+        if (symbol == EMPTY_SYMBOL) {
             return null;
         }
-        if (result == null) {
-            throw new IllegalArgumentException("Symbol does not represent a tile.");
+        WeatherType weatherType = parseWeatherType(symbol);
+
+        Spawner spawner = switch (weatherType) {
+            case CLOUD -> (Positionable pos) -> new Cloud(pos);
+            case RAINCLOUD -> (Positionable pos) -> new RainCloud(pos);
+            case ACIDCLOUD -> (Positionable pos) -> new AcidCloud(pos);
+            case LIGHTNING -> (Positionable pos) -> new Lightning(pos);
+        };
+
+         double baseDuration = switch (weatherType) {
+            case CLOUD -> Cloud.SPAWN_TIME;
+            case RAINCLOUD -> RainCloud.SPAWN_TIME;
+            case ACIDCLOUD -> AcidCloud.SPAWN_TIME;
+            case LIGHTNING -> Lightning.SPAWN_TIME;
+        };
+
+        double modifier = 1;
+        if (Character.isUpperCase(symbol)) {
+            modifier = UPPER_MODIFIER;
         }
-        return result;
+        TickTimer repeatingTimer = new RepeatingTimer((int) (baseDuration * modifier));
+
+        return new WeatherSpawnPoint(position, repeatingTimer, spawner);
 
     }
 

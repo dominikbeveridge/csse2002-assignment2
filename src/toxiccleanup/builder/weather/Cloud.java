@@ -21,7 +21,7 @@ import toxiccleanup.builder.entities.GameEntity;
  */
 public class Cloud extends GameEntity implements Obscuring {
     final public static int SPAWN_TIME = 300;
-    final public static int MOVEMENT_TIME = 1;
+    final private static int MOVEMENT_TIME = 1;
     private static final SpriteGroup art = SpriteGallery.cloud;
     final private static int SPEED = 2;
     final private TickTimer timer;
