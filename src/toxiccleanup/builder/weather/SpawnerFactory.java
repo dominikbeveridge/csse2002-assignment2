@@ -42,7 +42,14 @@ public class SpawnerFactory {
         ACIDCLOUD,
         LIGHTNING,
     }
-    private static WeatherType parseWeatherType(char symbol) {
+
+    /**
+     * Parses a weather symbol into a WeatherType, throwing an IllegalArgumentException if invalid
+     *
+     * @param symbol the symbol to parse
+     * @return the WeatherType of the symbol
+     */
+    private static WeatherType parseWeatherType(char symbol) throws IllegalArgumentException {
         return switch (Character.toLowerCase(symbol)) {
             case CLOUD_SYMBOL -> WeatherType.CLOUD;
             case RAINCLOUD_SYMBOL -> WeatherType.RAINCLOUD;
@@ -52,7 +59,15 @@ public class SpawnerFactory {
         };
 
     }
-    public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol) {
+
+    /**
+     * Creates a WeatherSpawnPoint based on the given position and symbol
+     * @param position the position for the WeatherSpawnPoint to spawn at
+     * @param symbol the symbol corresponding to the weather type
+     * @return a WeatherSpawnPoint based on the given position and symbol
+     * @throws IllegalArgumentException
+     */
+    public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol) throws IllegalArgumentException {
         if (symbol == EMPTY_SYMBOL) {
             return null;
         }
