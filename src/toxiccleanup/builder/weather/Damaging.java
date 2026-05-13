@@ -8,7 +8,7 @@ import toxiccleanup.builder.Damage;
  * Indicates something can deal/generate 'damage'.
  */
 public interface Damaging {
-    public Damage getDamage(Dimensions dimensions, Positionable position);
+    Damage getDamage(Dimensions dimensions, Positionable position);
 
-    public Damage getDamage();
+     Damage getDamage();
 }

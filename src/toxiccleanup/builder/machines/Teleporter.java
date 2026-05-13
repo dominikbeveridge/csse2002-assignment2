@@ -67,11 +67,10 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
         final Weather weather = game.getWeather();
         Damage dmg = weather.getDamage(state.getDimensions(), this.getPosition());
         if (dmg != null) {
-            this.damageHandler.setDamage(dmg);
+            this.setDamage(dmg);
         }
-        if (this.damageHandler.isDamaged()) {
-            setSprite(art.getSprite("damaged"));
-            return; //exit early the solar panel is damaged!
+        if (this.isDamaged()) {
+            return;
         }
 
         animTimer.tick();
@@ -107,36 +106,35 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
     @Override
     public void playerOver(EngineState state, GameState game) {
         if (!state.getKeys().isDown(Teleporter.USE_KEY)) {
-            return; //we can exit early if no use happening
+            return;
         }
-        if (this.damageHandler.isDamaged()) {
-            this.damageHandler.repairDamage();
-            return; //return on the frame we repair
+        if (this.isDamaged()) {
+            this.repairDamage();
+            return;
         }
 
         if (game.getMachines().hasRequiredPower(getPowerRequirement())) {
-            //jb: sync positions of player to position of tile
             final Positionable position = game.getMachines().getNextTeleporterPosition(this);
             game.getPlayer().setPosition(position);
         }
     }
 
     /**
-     * Handles updating the anim to the next sprite,
-     * adjusting our internal index and resetting it to the start if we go past the final index.
+     * Handles updating the animation to the next sprite,
+     * adjusting the internal index and resetting it to the start if it goes past the final index.
      */
     private void updateArt() {
         animFrame += 1;
-        if (animFrame > finalAnimFrameIndex) { //reset our animation back to the start
+        if (animFrame > finalAnimFrameIndex) {
             animFrame = 1;
         }
-        setSprite(art.getSprite(animFrame + ""));
+        setSprite(art.getSprite(String.valueOf(animFrame) ));
     }
 
     /**
-     * Returns if this damageable Object is or is not in its damaged state.
+     * Returns if the Teleporter is or is not in its damaged state.
      *
-     * @return if this damageable Object is or is not in its damaged state.
+     * @return true if the Teleporter is in its damaged state and false otherwise.
      */
     @Override
     public boolean isDamaged() {
@@ -144,15 +142,17 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
     }
 
     /**
-     * Sets the Damageable Object to it's damaged state.
+     * Sets the Teleporter to its damaged state.
      */
     @Override
     public void setDamage(Damage dmg) {
+
+        setSprite(art.getSprite("damaged"));
         this.damageHandler.setDamage(dmg);
     }
 
     /**
-     * Sets the Damageable Object to it's undamaged
+     * Sets the Teleporter to its undamaged state
      */
     @Override
     public void repairDamage() {

@@ -75,12 +75,12 @@ public class SolarPanel extends GameEntity implements PlayerOverHook {
         }
         if (this.damageHandler.isDamaged()) {
             setSprite(solarPanelArt.getSprite("damaged"));
-            return; //exit early the solar panel is damaged!
+            return;
         }
 
         if (weather.isObscuring(state.getDimensions(), this.getPosition())) {
             setSprite(solarPanelArt.getSprite("off"));
-            return; //exit early the solar panel is obscured!
+            return;
         }
         setSprite(solarPanelArt.getSprite("default"));
 
@@ -103,7 +103,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook {
     @Override
     public void playerOver(EngineState state, GameState game) {
         if (!state.getKeys().isDown(SolarPanel.USE_KEY)) {
-            return; //we can exit early if no use happening
+            return;
         }
         if (this.damageHandler.isDamaged()) {
             this.damageHandler.repairDamage();

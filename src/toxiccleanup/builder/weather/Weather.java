@@ -13,18 +13,18 @@ import toxiccleanup.builder.ui.RenderableGroup;
  */
 public interface Weather extends Tickable, RenderableGroup, Damaging {
 
-    public void addSpawnPoint(WeatherSpawnPoint spawnPoint);
+     void addSpawnPoint(WeatherSpawnPoint spawnPoint);
 
-    public void addWeather(GameEntity weather);
+     void addWeather(GameEntity weather);
 
-    public boolean isObscuring(Dimensions dimensions, Positionable position);
+     boolean isObscuring(Dimensions dimensions, Positionable position);
 
-    public boolean isDamaging(Dimensions dimensions, Positionable position);
+     boolean isDamaging(Dimensions dimensions, Positionable position);
 
     /**
-     * Recieves the position of a lightning rod and adjusts the weather system accordingly.
+     * Receives the position of a lightning rod and adjusts the weather system accordingly.
      *
      * @param position - position of the lightning rod that the weather should be adjusted for.
      */
-    public void applyLightningRod(Positionable position);
+     void applyLightningRod(Positionable position);
 }

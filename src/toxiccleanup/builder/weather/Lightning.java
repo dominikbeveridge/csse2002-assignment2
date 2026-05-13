@@ -91,8 +91,7 @@ public class Lightning extends GameEntity implements Damaging {
      * @return if the {@link Lightning} is currently in its state that would deal {@link Damage}
      */
     public boolean isDamaging() {
-        final boolean isActiveHitFrames = animFrame == 5 || animFrame == 6;
-        return isActiveHitFrames;
+        return animFrame == 5 || animFrame == 6;
     }
 
 
