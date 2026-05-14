@@ -32,6 +32,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
     private static final int POWER_GAIN = 1;
     private static final int TICK_TARGET = 120;
     private static final char USE_KEY = 'e';
+    public static final String DEFAULT_SPRITE = "default";
     private final TickTimer timer;
     private final Damageable damageHandler;
 
@@ -43,7 +44,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
      */
     public SolarPanel(Positionable position) {
         super(position);
-        setSprite(solarPanelArt.getSprite("default"));
+        setSprite(solarPanelArt.getSprite(DEFAULT_SPRITE));
         timer = new RepeatingTimer(SolarPanel.TICK_TARGET);
         damageHandler = new DamageHandler();
     }
@@ -56,7 +57,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
      */
     public SolarPanel(Positionable position, Damageable damageHandler) {
         super(position);
-        setSprite(solarPanelArt.getSprite("default"));
+        setSprite(solarPanelArt.getSprite(DEFAULT_SPRITE));
         timer = new RepeatingTimer(SolarPanel.TICK_TARGET);
         this.damageHandler = damageHandler;
     }
@@ -77,9 +78,9 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
         final Weather weather = game.getWeather();
         Damage dmg = weather.getDamage(state.getDimensions(), this.getPosition());
         if (dmg != null) {
-            this.damageHandler.setDamage(dmg);
+            this.setDamage(dmg);
         }
-        if (this.damageHandler.isDamaged()) {
+        if (this.isDamaged()) {
             setSprite(solarPanelArt.getSprite("damaged"));
             return;
         }
@@ -88,7 +89,8 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
             setSprite(solarPanelArt.getSprite("off"));
             return;
         }
-        setSprite(solarPanelArt.getSprite("default"));
+
+        setSprite(solarPanelArt.getSprite(DEFAULT_SPRITE));
 
         timer.tick();
         if (timer.isFinished()) {
@@ -111,8 +113,25 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
         if (!state.getKeys().isDown(SolarPanel.USE_KEY)) {
             return;
         }
-        if (this.damageHandler.isDamaged()) {
-            this.damageHandler.repairDamage();
+        if (this.isDamaged()) {
+            this.repairDamage();
         }
     }
+
+    @Override
+    public boolean isDamaged() {
+        return this.damageHandler.isDamaged();
+    }
+
+    @Override
+    public void setDamage(Damage dmg) {
+        this.damageHandler.setDamage(dmg);
+    }
+
+    @Override
+    public void repairDamage() {
+        this.damageHandler.repairDamage();
+    }
+
+
 }
