@@ -63,6 +63,12 @@ public interface Machines extends Adjustable, Tickable {
      */
     SolarPanel spawnSolarPanel(Positionable position);
 
+    /**
+     * Spawns a new LightningRod at the provided position
+     *
+     * @param position the position to spawn the LightningRod at
+     * @return the newly spawned LightningRod
+     */
     LightningRod spawnLightningRod(Positionable position);
 
     /**

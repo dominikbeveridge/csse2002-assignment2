@@ -1,11 +1,9 @@
 package toxiccleanup.builder.weather;
 
-import toxiccleanup.engine.EngineState;
 import toxiccleanup.engine.art.sprites.SpriteGroup;
 import toxiccleanup.engine.game.Positionable;
 import toxiccleanup.engine.renderer.Dimensions;
 import toxiccleanup.builder.Damage;
-import toxiccleanup.builder.GameState;
 import toxiccleanup.builder.SpriteGallery;
 
 /**
@@ -19,10 +17,13 @@ import toxiccleanup.builder.SpriteGallery;
  * @provided
  */
 public class AcidCloud extends Cloud implements Damaging {
-    final public static int SPAWN_TIME = 300;
-    final private static SpriteGroup art = SpriteGallery.acidcloud;
+    public static final int SPAWN_TIME = 300;
+    private static final SpriteGroup art = SpriteGallery.acidcloud;
+
     /**
+     *
      * Constructs an instance of the AcidCloud at the given position.
+     *
      * @param position the position to spawn the AcidCloud at
      */
     public AcidCloud(Positionable position) {
@@ -39,7 +40,6 @@ public class AcidCloud extends Cloud implements Damaging {
     public Damage getDamage() {
         return new Damage(this.getPosition());
     }
-
 
 
 }

@@ -36,7 +36,7 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
     private final int finalAnimFrameIndex;
     private final TickTimer animTimer;
     private int animFrame = 1;
-    final private Damageable damageHandler;
+    private final Damageable damageHandler;
     
     /**
      * Constructs a new Teleporter at the given position.
@@ -128,7 +128,7 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
         if (animFrame > finalAnimFrameIndex) {
             animFrame = 1;
         }
-        setSprite(art.getSprite(String.valueOf(animFrame) ));
+        setSprite(art.getSprite(String.valueOf(animFrame)));
     }
 
     /**

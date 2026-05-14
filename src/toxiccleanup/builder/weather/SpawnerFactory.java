@@ -36,11 +36,9 @@ public class SpawnerFactory {
     private static final char LIGHTNING_SYMBOL = 'l';
     private static final char EMPTY_SYMBOL = '_';
     private static final double UPPER_MODIFIER = 5.5;
-    private enum WeatherType  {
-        CLOUD,
-        RAINCLOUD,
-        ACIDCLOUD,
-        LIGHTNING,
+
+    private enum WeatherType {
+        CLOUD, RAINCLOUD, ACIDCLOUD, LIGHTNING,
     }
 
     /**
@@ -62,12 +60,15 @@ public class SpawnerFactory {
 
     /**
      * Creates a WeatherSpawnPoint based on the given position and symbol
+     *
      * @param position the position for the WeatherSpawnPoint to spawn at
-     * @param symbol the symbol corresponding to the weather type
+     * @param symbol   the symbol corresponding to the weather type
      * @return a WeatherSpawnPoint based on the given position and symbol
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if the symbol provided does not correspond to a weather
+     * type or empty symbol
      */
-    public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol) throws IllegalArgumentException {
+    public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol)
+            throws IllegalArgumentException {
         if (symbol == EMPTY_SYMBOL) {
             return null;
         }
@@ -80,7 +81,7 @@ public class SpawnerFactory {
             case LIGHTNING -> Lightning::new;
         };
 
-         double baseDuration = switch (weatherType) {
+        double baseDuration = switch (weatherType) {
             case CLOUD -> Cloud.SPAWN_TIME;
             case RAINCLOUD -> RainCloud.SPAWN_TIME;
             case ACIDCLOUD -> AcidCloud.SPAWN_TIME;

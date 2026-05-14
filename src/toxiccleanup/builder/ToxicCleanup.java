@@ -41,7 +41,37 @@ public class ToxicCleanup implements Game {
     private final Weather weather;
     private final RepeatingTimer damageTimer = new RepeatingTimer(DAMAGE_INTERVAL);
 
-    public ToxicCleanup(Dimensions dimensions, Positionable starterTeleporterPosition, String worldFilepath, String weatherFilepath) throws IOException, WorldLoadException {
+    /**
+     * Constructs an instance of {@link ToxicCleanup} using the provided
+     *  player location, map path, weather path and spawns a starter
+     * {@link Teleporter} at the given position.
+     *
+     * A default starting power level is used.
+     *
+     * Calculates the player's starting pixel
+     * position based on tile coordinates (5, 5) and initialises the
+     * {@link PlayerManager} with that position.
+     *
+     * Loads the game world from the map file using
+     * {@link WorldBuilder#fromFile} with the given dimensions.
+     *
+     * nitialises the {@link MachinesManager} and {@link GuiManager}.
+     *
+     * Spawns a starter
+     * {@link Teleporter} at the given position.
+     *
+     * @param dimensions                the dimensions of the game window, used to calculate tile
+     *                                  positions and place entities on the grid.
+     * @param starterTeleporterPosition the tile position at which to spawn the initial
+     *                                  {@link Teleporter}.
+     * @param worldFilepath the filepath of the World file to load and parse
+     * @param weatherFilepath the filepath of the Weather to load and parse
+     * @throws IOException        if the target map file could not be read.
+     * @throws WorldLoadException if the target map file failed to parse.
+     */
+    public ToxicCleanup(Dimensions dimensions, Positionable starterTeleporterPosition,
+                        String worldFilepath, String weatherFilepath)
+            throws IOException, WorldLoadException {
         final int halfTileOffset = dimensions.tileSize() / 2;
         final int playerX = dimensions.tileSize() + halfTileOffset;
         final int playerY = dimensions.tileSize() + halfTileOffset;
@@ -165,7 +195,8 @@ public class ToxicCleanup implements Game {
      * @provided
      */
     public void tick(EngineState engine) {
-        final GameState game = new ToxicCleanupGameState(world, playerManager, machineManager, weather);
+        final GameState game = new
+                ToxicCleanupGameState(world, playerManager, machineManager, weather);
 
         world.tick(engine, game);
 

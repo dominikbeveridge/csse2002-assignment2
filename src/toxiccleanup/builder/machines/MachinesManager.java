@@ -206,7 +206,8 @@ public class MachinesManager implements Machines {
         }
         final ArrayList<Positionable> validPositions = new ArrayList<>();
         for (Positionable position : teleporterPositions) {
-            final boolean notOverlappingExcludedPosition = (position.getX() != excludedPosition.getX()
+            final boolean notOverlappingExcludedPosition =
+                    (position.getX() != excludedPosition.getX()
                     && position.getY() != excludedPosition.getY());
             if (notOverlappingExcludedPosition) {
                 validPositions.add(position);

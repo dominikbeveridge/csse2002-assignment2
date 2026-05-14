@@ -49,11 +49,13 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
         damageHandler = new DamageHandler();
     }
     /**
+     *
      * Constructs a new SolarPanel at the given position using a default internal
      * {@link TickTimer} set to fire every (120) frames and the provided damage handler.
      *
      * @param position the position we wish to spawn the {@link SolarPanel} at.
-     * @param damageHandler
+     * @param damageHandler the handler for any damage applied to the SolarPanel
+     *
      */
     public SolarPanel(Positionable position, Damageable damageHandler) {
         super(position);

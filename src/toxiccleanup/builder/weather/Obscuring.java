@@ -1,3 +1,7 @@
 package toxiccleanup.builder.weather;
 
-public interface Obscuring { }
+/**
+ * Represents an object that can obscure another
+ */
+public interface Obscuring {
+}

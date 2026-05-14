@@ -37,6 +37,9 @@ public class WeatherManager implements Weather {
     private final List<WeatherSpawnPoint> spawnPoints = new ArrayList<>();
     private final List<GameEntity> phenomena = new ArrayList<>();
 
+    /**
+     * Constructs a new WeatherManager instance
+     */
     public WeatherManager() {
     }
 
@@ -119,7 +122,7 @@ public class WeatherManager implements Weather {
      * Checks if the given tile location is being damaged.
      *
      * @param dimensions - the dimensions of the game window, used to calculate tile
-     *                        positions.
+     *                   positions.
      * @param position   - the position of the tile
      * @return true if the given tile location is being damaged, false otherwise
      */
@@ -141,7 +144,8 @@ public class WeatherManager implements Weather {
 
     /**
      * Adjusts the weather system according to the provided {@link LightningRod} position.
-     * Moves any {@link Lightning} that are within the LightningRod radius {@value LightningRod#RADIUS}
+     * Moves any {@link Lightning} that are within the LightningRod radius
+     * {@value LightningRod#RADIUS}
      * to the given position.
      *
      * @param position - position of the LightningRod
@@ -205,10 +209,8 @@ public class WeatherManager implements Weather {
      */
     @Override
     public String toString() {
-        return "WeatherManager:[\n"
-                + "Phenomena:" + phenomena.size() + "\n"
-                + "SpawnPoints:" + spawnPoints.size() + "\n"
-                + "]\n";
+        return "WeatherManager:[\n" + "Phenomena:" + phenomena.size() + "\n" + "SpawnPoints:"
+                + spawnPoints.size() + "\n" + "]\n";
     }
 
 }

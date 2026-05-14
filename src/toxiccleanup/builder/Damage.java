@@ -2,13 +2,20 @@ package toxiccleanup.builder;
 
 import toxiccleanup.engine.game.Positionable;
 
+/**
+ * Represents a unit of Damage at a certain position
+ */
 public class Damage implements Positionable {
-    private int x ;
-    private int y;
+    private int posX;
+    private int posY;
 
+    /**
+     * Constructs a new Damage instance at the provided position
+     * @param position the position of the Damage instance
+     */
     public Damage(Positionable position) {
-        this.x = position.getX();
-        this.y = position.getY();
+        this.posX = position.getX();
+        this.posY = position.getY();
     }
 
 
@@ -21,7 +28,7 @@ public class Damage implements Positionable {
      */
     @Override
     public int getX() {
-        return x;
+        return posX;
     }
 
     /**
@@ -32,7 +39,7 @@ public class Damage implements Positionable {
      */
     @Override
     public int getY() {
-        return y;
+        return posY;
     }
 
     /**
@@ -44,7 +51,7 @@ public class Damage implements Positionable {
      */
     @Override
     public void setX(int x) {
-        this.x = x;
+        this.posX = x;
     }
 
     /**
@@ -56,6 +63,6 @@ public class Damage implements Positionable {
      */
     @Override
     public void setY(int y) {
-        this.y = y;
+        this.posY = y;
     }
 }

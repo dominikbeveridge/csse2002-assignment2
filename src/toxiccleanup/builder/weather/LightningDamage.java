@@ -9,6 +9,7 @@ import toxiccleanup.builder.Damage;
 public class LightningDamage extends Damage {
     /**
      * Constructs an instance of LightningDamage at the specified position
+     *
      * @param position the position to spawn the LightningDamage at
      */
     public LightningDamage(Positionable position) {

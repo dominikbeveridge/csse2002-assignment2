@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Builds a Weather manager from a string or file
+ */
 public class WeatherBuilder {
     /**
+     * Loads and creates a Weather instance based on the provided string and game dimensions
      *
      * @param dimensions - the dimensions of the game window, used to calculate tile
      *      *                   positions and place entities on the grid.
@@ -19,7 +23,7 @@ public class WeatherBuilder {
      *      *                   the various {@link WeatherSpawnPoint}s
      * @return the Weather with {@link WeatherSpawnPoint}s added according to the filepath and
      * dimensions
-     * @throws WorldLoadException
+     * @throws WorldLoadException if the loaded file is invalid
      */
     public static Weather fromString(Dimensions dimensions, String text) throws WorldLoadException {
         final Weather weather = new WeatherManager();
@@ -79,8 +83,8 @@ public class WeatherBuilder {
      *                   the various {@link WeatherSpawnPoint}s
      * @return the Weather with {@link WeatherSpawnPoint}s added according to the filepath and
      * dimensions
-     * @throws IOException
-     * @throws WorldLoadException
+     * @throws IOException if there is an error in reading the file provided
+     * @throws WorldLoadException if the loaded file is invalid
      */
     public static Weather fromFile(Dimensions dimensions, String filepath)
             throws IOException, WorldLoadException {

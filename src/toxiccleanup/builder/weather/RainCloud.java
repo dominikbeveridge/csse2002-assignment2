@@ -17,8 +17,9 @@ import toxiccleanup.builder.SpriteGallery;
  * @provided
  */
 public class RainCloud extends Cloud {
-    final public static int SPAWN_TIME = 300;
-    final private static SpriteGroup art = SpriteGallery.raincloud;
+    public static final int SPAWN_TIME = 300;
+    private static final SpriteGroup art = SpriteGallery.raincloud;
+
     /**
      * Constructs a new RainCloud at the specified position.
      *

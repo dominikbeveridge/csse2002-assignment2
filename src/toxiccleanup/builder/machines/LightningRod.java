@@ -41,6 +41,8 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     }
 
     /**
+     * Progresses the state of the LightningRod by one tick
+     *
      * @param state The state of the engine, including the mouse, keyboard information and
      *              dimension. Useful for processing keyboard presses or mouse movement.
      * @param game  The state of the game, including the player and world. Can be used to query or

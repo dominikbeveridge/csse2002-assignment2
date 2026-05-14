@@ -36,6 +36,8 @@ public class WeatherSpawnPoint implements Tickable {
 
 
     /**
+     * Gets the currently stored position of the WeatherSpawnPoint
+     *
      * @return the currently stored position of the {@link WeatherSpawnPoint} in question.
      */
     public Positionable getPosition() {

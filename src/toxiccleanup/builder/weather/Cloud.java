@@ -20,17 +20,20 @@ import toxiccleanup.builder.entities.GameEntity;
  * @provided
  */
 public class Cloud extends GameEntity implements Obscuring {
-    final public static int SPAWN_TIME = 300;
-    final private static int MOVEMENT_TIME = 1;
+    public static final int SPAWN_TIME = 300;
+    private static final int MOVEMENT_TIME = 1;
     private static final SpriteGroup art = SpriteGallery.cloud;
-    final private static int SPEED = 2;
-    final private TickTimer movementTimer;
+    private static final int SPEED = 2;
+    private final TickTimer movementTimer;
     private final TickTimer animTimer = new RepeatingTimer(12);
     private final Animation animation;
+
     /**
      * Constructs a new Cloud at the specified position with the default animation.
      *
      * @param position the position that the Cloud spawns on
+     * @param animation the animation for the Cloud to play
+     *
      */
     public Cloud(Positionable position, Animation animation) {
         super(position);
@@ -50,6 +53,8 @@ public class Cloud extends GameEntity implements Obscuring {
     }
 
     /**
+     * Progresses the state of the cloud by one tick by updating animations and movement
+     *
      * @param state The state of the engine, including the mouse, keyboard information and
      *              dimension. Useful for processing keyboard presses or mouse movement.
      * @param game  The state of the game, including the player and world. Can be used to query or

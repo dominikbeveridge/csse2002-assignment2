@@ -16,7 +16,8 @@ import toxiccleanup.builder.entities.GameEntity;
  * <p> A {@link Lightning} is a weather phenomena that will spawn at a given location.</p>
  * <p> It exists for a set lifespan (see {@value #LIFESPAN}) then will mark itself for removal. </p>
  * <p> When it reaches the leftmost edge of the screen, it will mark itself for removal. </p>
- * <p> Lightning only deals {@link LightningDamage} during frames 5 and 6 of its animation cycle.</p>
+ * <p> Lightning only deals {@link LightningDamage} during frames 5 and 6 of its animation cycle
+ * .</p>
  * <p> See also: {@link toxiccleanup.builder.machines.LightningRod} </p>
  *
  * @provided
@@ -41,11 +42,13 @@ public class Lightning extends GameEntity implements Damaging {
         setSprite(animation.getCurrentSprite());
 
         int finalAnimFrameIndex = art.getSprites().size() - 1;
-        final int ANIM_TICK_INTERVAL = ((int) (double) (LIFESPAN / finalAnimFrameIndex));
-        animTimer = new RepeatingTimer(ANIM_TICK_INTERVAL);
+        final int animTickInterval = ((int) (double) (LIFESPAN / finalAnimFrameIndex));
+        animTimer = new RepeatingTimer(animTickInterval);
     }
 
     /**
+     * Progresses the state of the Lighting by one tick
+     *
      * @param state The state of the engine, including the mouse, keyboard information and
      *              dimension. Useful for processing keyboard presses or mouse movement.
      * @param game  The state of the game, including the player and world. Can be used to query or
@@ -87,7 +90,7 @@ public class Lightning extends GameEntity implements Damaging {
     /**
      * Returns if the {@link Lightning} is currently in its state that would deal {@link Damage}
      *
-     * @return if the {@link Lightning} is currently in its state that would deal {@link Damage}
+     * @return if the {@link Lightning} is currently in a state that would deal {@link Damage}
      */
     public boolean isDamaging() {
         return animation.getCurrentFrame() == 5 || animation.getCurrentFrame() == 6;

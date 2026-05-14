@@ -11,6 +11,9 @@ import toxiccleanup.builder.Damage;
 public class DamageHandler implements Damageable {
     private boolean damaged = false;
 
+    /**
+     * Constructs a new DamageHandler
+     */
     public DamageHandler() {
     }
 
