@@ -65,7 +65,7 @@ public class SpawnerFactory {
      * @param symbol   the symbol corresponding to the weather type
      * @return a WeatherSpawnPoint based on the given position and symbol
      * @throws IllegalArgumentException if the symbol provided does not correspond to a weather
-     * type or empty symbol
+     *                                  type or empty symbol
      */
     public static WeatherSpawnPoint fromSymbol(Positionable position, char symbol)
             throws IllegalArgumentException {

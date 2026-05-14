@@ -31,7 +31,7 @@ public class Cloud extends GameEntity implements Obscuring {
     /**
      * Constructs a new Cloud at the specified position with the default animation.
      *
-     * @param position the position that the Cloud spawns on
+     * @param position  the position that the Cloud spawns on
      * @param animation the animation for the Cloud to play
      *
      */

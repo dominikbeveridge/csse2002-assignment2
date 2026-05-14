@@ -11,13 +11,13 @@ public class Damage implements Positionable {
 
     /**
      * Constructs a new Damage instance at the provided position
+     *
      * @param position the position of the Damage instance
      */
     public Damage(Positionable position) {
         this.posX = position.getX();
         this.posY = position.getY();
     }
-
 
 
     /**

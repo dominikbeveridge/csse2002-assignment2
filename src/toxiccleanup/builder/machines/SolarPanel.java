@@ -48,6 +48,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable
         timer = new RepeatingTimer(SolarPanel.TICK_TARGET);
         damageHandler = new DamageHandler();
     }
+
     /**
      *
      * Constructs a new SolarPanel at the given position using a default internal

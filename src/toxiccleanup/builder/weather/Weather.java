@@ -15,12 +15,14 @@ public interface Weather extends Tickable, RenderableGroup, Damaging {
 
     /**
      * Adds a weather spawn point to be managed by the weather system
+     *
      * @param spawnPoint the spawn point to be added
      */
     void addSpawnPoint(WeatherSpawnPoint spawnPoint);
 
     /**
      * Adds a specific instance of a GameEntity to be managed by the weather system
+     *
      * @param weather the GameEntity to add
      */
     void addWeather(GameEntity weather);
@@ -28,8 +30,9 @@ public interface Weather extends Tickable, RenderableGroup, Damaging {
     /**
      * Checks if the Weather system is obscuring the provided tile according to the position and
      * dimensions
+     *
      * @param dimensions the dimensions of the world, used for calculating tiles
-     * @param position the position to check the obscuring status of
+     * @param position   the position to check the obscuring status of
      * @return true if the position is being obscured, false otherwise
      */
     boolean isObscuring(Dimensions dimensions, Positionable position);
@@ -37,8 +40,9 @@ public interface Weather extends Tickable, RenderableGroup, Damaging {
     /**
      * Checks if the Weather system is damaging the provided tile according to the position and
      * dimensions
+     *
      * @param dimensions the dimensions of the world, used for calculating tiles
-     * @param position the position to check the damaging status of
+     * @param position   the position to check the damaging status of
      * @return true if the position is being damaged, false otherwise
      */
     boolean isDamaging(Dimensions dimensions, Positionable position);

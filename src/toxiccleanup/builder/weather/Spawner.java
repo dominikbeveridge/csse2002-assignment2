@@ -13,6 +13,7 @@ import toxiccleanup.builder.entities.GameEntity;
 public interface Spawner {
     /**
      * Spawns a new GameEntity at the provided position
+     *
      * @param position the position to spawn the GameEntity at
      * @return the newly spawned GameEntity
      */

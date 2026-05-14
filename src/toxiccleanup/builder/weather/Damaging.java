@@ -13,13 +13,14 @@ public interface Damaging {
      * usually for tile-based lookups.
      *
      * @param dimensions the dimensions of the game
-     * @param position the position to check for damage
+     * @param position   the position to check for damage
      * @return the damage at the provided position
      */
     Damage getDamage(Dimensions dimensions, Positionable position);
 
     /**
      * Returns a Damage instance
+     *
      * @return the damage instance from the Damaging object
      */
     Damage getDamage();
