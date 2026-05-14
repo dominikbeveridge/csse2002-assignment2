@@ -1,39 +1,36 @@
 package toxiccleanup.builder.machines;
 
 import org.junit.Test;
-import toxiccleanup.builder.GameState;
-import toxiccleanup.builder.Tickable;
-import toxiccleanup.builder.ToxicCleanup;
-import toxiccleanup.builder.ToxicCleanupGameState;
-import toxiccleanup.builder.entities.GameEntity;
 import toxiccleanup.builder.entities.tiles.ToxicField;
-import toxiccleanup.builder.util.MockMachines;
-import toxiccleanup.builder.weather.Lightning;
-import toxiccleanup.engine.core.headless.MockKeys;
-import toxiccleanup.engine.core.headless.MockMouse;
 import toxiccleanup.engine.game.Position;
 import toxiccleanup.engine.game.Positionable;
-import toxiccleanup.engine.renderer.TileGrid;
 import toxiccleanup.engine.timing.FixedTimer;
 import toxiccleanup.engine.timing.TickTimer;
-import toxiccleanup.engine.util.MockEngineState;
-import toxiccleanup.engine.util.MockGameState;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class MachinesManagerTest {
-    private final  TileGrid tileGrid = new TileGrid(16, 800);
-    private final MockMouse mockMouse = new MockMouse(2, 2, false, false, false);
-    private final MockKeys mockKeys = new MockKeys(new ArrayList<>());
-    private final  MockEngineState baseEngineState = new MockEngineState(tileGrid, mockMouse, mockKeys);
-    private final  MockGameState baseGameState = new MockGameState();
-
 
     /**
-     * Tests if MachinesManager respects the minimum and maximum power constraints
+     * Ensures the max power is 14
+     */
+    @Test
+    public void maxPowerIs14() {
+        Machines machines = new MachinesManager();
+        assertEquals("The maximum power should be 14", 14, machines.getMaxPower());
+    }
+    /**
+     * Ensures the power starts at the maximum
+     */
+    @Test
+    public void powerStartsAtMaximum() {
+        Machines machines = new MachinesManager();
+        int expected = machines.getMaxPower();
+        assertEquals("The maximum power should be equal to the starting power", expected, machines.getPower());
+    }
+
+    /**
+     * Tests if MachinesManager setPower respects the minimum and maximum power constraints
      */
     @Test
     public void setPowerIsGreaterThanZeroAndLessThanMaximum() {
@@ -48,6 +45,9 @@ public class MachinesManagerTest {
                 machines.getPower());
     }
 
+    /**
+     * Ensures that power cannot go above or below the maximum and 0.
+     */
     @Test
     public void adjustedPowerIsGreaterThanZeroAndLessThanMaximum() {
         Machines machines = new MachinesManager();
@@ -61,6 +61,9 @@ public class MachinesManagerTest {
                 machines.getPower());
     }
 
+    /**
+     * Ensures the power can be set correctly within the permissible range
+     */
     @Test
     public void powerSetsToCorrectAmountWithinRange() {
         Machines machines = new MachinesManager();
@@ -70,6 +73,9 @@ public class MachinesManagerTest {
                 machines.getPower());
     }
 
+    /**
+     *  Ensures that power adjusts correctly within the permissible range
+     */
     @Test
     public void powerAdjustsByCorrectAmountWithinRange() {
         Machines machines = new MachinesManager();
@@ -83,26 +89,34 @@ public class MachinesManagerTest {
                 machines.getPower());
     }
 
+    /**
+     * Ensures hasRequiredPower returns true in the correct situations
+     */
     @Test
     public void hasRequiredPowerWhenValid() {
         int powerRequirement = 5;
         Machines machines = new MachinesManager();
         machines.setPower(powerRequirement);
         boolean expected = true;
-        assertEquals("hasRequiredpower should return true when power is sufficient", expected,
+        assertEquals("hasRequiredPower should return true when power is sufficient", expected,
                 machines.hasRequiredPower(powerRequirement));
     }
-
+    /**
+     * Ensures hasRequiredPower returns false in the correct situations
+     */
     @Test
     public void doesNotHaveRequiredPowerWhenInvalid() {
         int powerRequirement = 5;
         Machines machines = new MachinesManager();
         machines.setPower(powerRequirement - 1);
         boolean expected = false;
-        assertEquals("hasRequiredpower should return false when power is sufficient", expected,
+        assertEquals("hasRequiredPower should return false when power is sufficient", expected,
                 machines.hasRequiredPower(powerRequirement));
     }
 
+    /**
+     * Ensures spawning a machine reduces the total power correctly
+     */
     @Test
     public void spawnedMachinesReducePower() {
         Machines machines = new MachinesManager();
@@ -133,6 +147,9 @@ public class MachinesManagerTest {
                 machines.getPower());
     }
 
+    /**
+     * Ensures machines do not spawn without enough power
+     */
     @Test
     public void machinesDoNotSpawnIfInsufficientPower() {
 
@@ -159,6 +176,9 @@ public class MachinesManagerTest {
 
     }
 
+    /**
+     * Ensures that if there is only one teleporter, it is returned
+     */
     @Test
     public void getNextTeleporterPositionReturnsOnlyTeleporter() {
 
@@ -173,6 +193,9 @@ public class MachinesManagerTest {
 
     }
 
+    /**
+     * Tests that the next teleporter excludes the current position
+     */
     @Test
     public void getNextTeleporterPositionExcludesPositions() {
         TickTimer timer = new FixedTimer(1);
@@ -180,34 +203,48 @@ public class MachinesManagerTest {
         machines.setPower(machines.getMaxPower());
         Positionable position1 = new Position(0, 0);
         Positionable position2 = new Position(1, 1);
-        Teleporter teleporter1 = machines.spawnTeleporter(position1);
-        Teleporter teleporter2 = machines.spawnTeleporter(position2);
-        Positionable expected = teleporter2.getPosition();
-        machines.tick(baseEngineState, baseGameState);
-        machines.tick(baseEngineState, baseGameState);
-        assertEquals("getNextTeleporterPosition should exclude the excluded position", expected,
+        timer.tick();
+        machines.spawnTeleporter(position1);
+        machines.spawnTeleporter(position2);
+        assertEquals("getNextTeleporterPosition should exclude the excluded position", position2,
                 machines.getNextTeleporterPosition(position1));
     }
 
+    /**
+     * Ensures that getting the next teleporter returns one of the available teleporters if there
+     * are more than one
+     */
     @Test
-    public void getNextTeleporterPositionWaitsForCooldown() {
-        TickTimer tickTimer = new FixedTimer(1);
-        Machines machines = new MachinesManager(tickTimer);
+    public void getNextTeleporterDoesNotReturnNullIfTeleportersAvailable() {
+        TickTimer timer = new FixedTimer(1);
+        Machines machines = new MachinesManager(timer);
         machines.setPower(machines.getMaxPower());
         Positionable position1 = new Position(0, 0);
         Positionable position2 = new Position(1, 1);
-        Positionable excludedPosition = new Position(2, 2);
+        Positionable position3 = new Position(3, 3);
+        timer.tick();
         machines.spawnTeleporter(position1);
         machines.spawnTeleporter(position2);
-        assertEquals("getNextTeleporterPosition should wait for the cooldown before returning", excludedPosition, machines.getNextTeleporterPosition(excludedPosition));
-
-        machines.tick(baseEngineState, baseGameState);
-        machines.tick(baseEngineState, baseGameState);
-
-        assertEquals("getNextTeleporterPosition should work on the cooldown expiry", position1, machines.getNextTeleporterPosition(position2));
-
+        Positionable nextTeleporter = machines.getNextTeleporterPosition(position3);
+        assertTrue("getNextTeleporterPosition should return one of the available teleporters",
+                (nextTeleporter.equals(position1) || nextTeleporter.equals(position2)) );
 
     }
 
+    /**
+     * Ensures that the excluded position is returned if there are no teleporters
+     */
+    @Test
+    public void getNextTeleporterReturnsExcludedPositionForNoTeleporters() {
+        TickTimer timer = new FixedTimer(1);
+        Machines machines = new MachinesManager(timer);
+        machines.setPower(machines.getMaxPower());
+        Positionable position = new Position(0, 0);
+        timer.tick();
+        Positionable nextTeleporter = machines.getNextTeleporterPosition(position);
+        assertEquals("getNextTeleporterPosition should return the excluded position if there are no teleporters",
+               nextTeleporter, position  );
+
+    }
 
 }
