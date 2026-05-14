@@ -8,6 +8,7 @@ package toxiccleanup.builder.machines;
  *
  * @provided
  */
+@SuppressWarnings("ALL")
 public interface Adjustable {
 
     /**

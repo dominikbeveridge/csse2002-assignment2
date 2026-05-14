@@ -3,8 +3,8 @@ package toxiccleanup.builder;
 import toxiccleanup.engine.game.Positionable;
 
 public class Damage implements Positionable {
-    private int x = 0;
-    private int y = 0;
+    private int x ;
+    private int y;
 
     public Damage(Positionable position) {
         this.x = position.getX();

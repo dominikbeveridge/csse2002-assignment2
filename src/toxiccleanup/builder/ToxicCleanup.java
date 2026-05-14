@@ -2,8 +2,6 @@ package toxiccleanup.builder;
 
 import toxiccleanup.builder.entities.tiles.Dirt;
 import toxiccleanup.builder.entities.tiles.Tile;
-import toxiccleanup.builder.entities.tiles.ToxicField;
-import toxiccleanup.builder.machines.LightningRod;
 import toxiccleanup.builder.machines.MachinesManager;
 import toxiccleanup.builder.machines.Teleporter;
 import toxiccleanup.builder.player.PlayerManager;

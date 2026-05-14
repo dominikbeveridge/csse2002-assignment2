@@ -74,10 +74,10 @@ public class SpawnerFactory {
         WeatherType weatherType = parseWeatherType(symbol);
 
         Spawner spawner = switch (weatherType) {
-            case CLOUD -> (Positionable pos) -> new Cloud(pos);
-            case RAINCLOUD -> (Positionable pos) -> new RainCloud(pos);
-            case ACIDCLOUD -> (Positionable pos) -> new AcidCloud(pos);
-            case LIGHTNING -> (Positionable pos) -> new Lightning(pos);
+            case CLOUD -> Cloud::new;
+            case RAINCLOUD -> RainCloud::new;
+            case ACIDCLOUD -> AcidCloud::new;
+            case LIGHTNING -> Lightning::new;
         };
 
          double baseDuration = switch (weatherType) {

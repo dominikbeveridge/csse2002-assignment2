@@ -11,5 +11,5 @@ import toxiccleanup.builder.entities.GameEntity;
  */
 @FunctionalInterface
 public interface Spawner {
-    public GameEntity spawn(Positionable position);
+    GameEntity spawn(Positionable position);
 }

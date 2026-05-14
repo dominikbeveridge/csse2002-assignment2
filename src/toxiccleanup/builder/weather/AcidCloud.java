@@ -4,8 +4,6 @@ import toxiccleanup.engine.EngineState;
 import toxiccleanup.engine.art.sprites.SpriteGroup;
 import toxiccleanup.engine.game.Positionable;
 import toxiccleanup.engine.renderer.Dimensions;
-import toxiccleanup.engine.timing.RepeatingTimer;
-import toxiccleanup.engine.timing.TickTimer;
 import toxiccleanup.builder.Damage;
 import toxiccleanup.builder.GameState;
 import toxiccleanup.builder.SpriteGallery;

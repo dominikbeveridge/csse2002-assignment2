@@ -83,7 +83,6 @@ public class PlayerManager implements Player {
      * <p>If the player is not alive, the player does not move, and the dead sprite is shown.</p>
      *
      * <p><span style="color:#9B59B6;">Provided:</span> Starter code only; The method signature is provided without a body.
-     *
      * Movement is performed as a one-tile step
      * (equivalent to {@code player.move(direction, 1)} when that helper is available). Boundaries should have a half
      * tile offset for visual reasons, so the player can only move to half a tile before the edge of the window.

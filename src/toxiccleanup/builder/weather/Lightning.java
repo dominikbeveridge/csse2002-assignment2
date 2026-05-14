@@ -14,7 +14,7 @@ import toxiccleanup.builder.entities.GameEntity;
 
 /**
  * <p> A {@link Lightning} is a weather phenomena that will spawn at a given location.</p>
- * <p> It exists for a set lifespan (see {@value #LIFESPAN} then will mark itself for removal. </p>
+ * <p> It exists for a set lifespan (see {@value #LIFESPAN}) then will mark itself for removal. </p>
  * <p> When it reaches the leftmost edge of the screen, it will mark itself for removal. </p>
  * <p> Lightning only deals {@link LightningDamage} during frames 5 and 6 of its animation cycle.</p>
  * <p> See also: {@link toxiccleanup.builder.machines.LightningRod} </p>
