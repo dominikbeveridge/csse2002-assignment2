@@ -63,6 +63,7 @@ public class ToxicField extends Tile implements PlayerOverHook, Adjustable {
         toxicity = Math.clamp(toxicity, 0, MAX_TOXICITY);
 
         if (toxicity <= 0) {
+
             clearField();
         }
         updateArt();
