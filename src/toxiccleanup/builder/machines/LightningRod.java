@@ -26,7 +26,7 @@ public class LightningRod extends GameEntity implements PlayerOverHook, Damageab
     public static final int RADIUS = 300;
     public static final int COST = 1;
     private static final SpriteGroup art = SpriteGallery.lightningrod;
-    private final DamageHandler damageHandler;
+    private final Damageable damageHandler;
     private static final char USE_KEY = 'e';
 
     /**

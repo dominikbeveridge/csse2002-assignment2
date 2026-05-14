@@ -23,7 +23,7 @@ import toxiccleanup.builder.weather.Weather;
  *
  * @provided
  */
-public class SolarPanel extends GameEntity implements PlayerOverHook {
+public class SolarPanel extends GameEntity implements PlayerOverHook, Damageable {
     /**
      * The number of power units required to place this solar panel.
      */
@@ -33,7 +33,7 @@ public class SolarPanel extends GameEntity implements PlayerOverHook {
     private static final int TICK_TARGET = 120;
     private static final char USE_KEY = 'e';
     private final TickTimer timer;
-    private final DamageHandler damageHandler;
+    private final Damageable damageHandler;
 
     /**
      * Constructs a new SolarPanel at the given position using a default internal
@@ -47,8 +47,14 @@ public class SolarPanel extends GameEntity implements PlayerOverHook {
         timer = new RepeatingTimer(SolarPanel.TICK_TARGET);
         damageHandler = new DamageHandler();
     }
-
-    public SolarPanel(Positionable position, DamageHandler damageHandler) {
+    /**
+     * Constructs a new SolarPanel at the given position using a default internal
+     * {@link TickTimer} set to fire every (120) frames and the provided damage handler.
+     *
+     * @param position the position we wish to spawn the {@link SolarPanel} at.
+     * @param damageHandler
+     */
+    public SolarPanel(Positionable position, Damageable damageHandler) {
         super(position);
         setSprite(solarPanelArt.getSprite("default"));
         timer = new RepeatingTimer(SolarPanel.TICK_TARGET);

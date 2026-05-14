@@ -36,7 +36,7 @@ public class Teleporter extends GameEntity implements PlayerOverHook, Powered, D
     private final int finalAnimFrameIndex;
     private final TickTimer animTimer;
     private int animFrame = 1;
-    final private DamageHandler damageHandler;
+    final private Damageable damageHandler;
     
     /**
      * Constructs a new Teleporter at the given position.
