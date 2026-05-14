@@ -19,15 +19,14 @@ import toxiccleanup.builder.SpriteGallery;
  * @provided
  */
 public class AcidCloud extends Cloud implements Damaging {
-    private static final SpriteGroup art = SpriteGallery.acidcloud;
     final public static int SPAWN_TIME = 300;
-
+    final private static SpriteGroup art = SpriteGallery.acidcloud;
     /**
      * Constructs an instance of the AcidCloud at the given position.
      * @param position the position to spawn the AcidCloud at
      */
     public AcidCloud(Positionable position) {
-        super(position);
+        super(position, new LoopingAnimation(art));
     }
 
 
@@ -41,8 +40,6 @@ public class AcidCloud extends Cloud implements Damaging {
         return new Damage(this.getPosition());
     }
 
-    @Override
-    public SpriteGroup getArt() {
-        return art;
-    }
+
+
 }

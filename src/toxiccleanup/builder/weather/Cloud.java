@@ -24,21 +24,29 @@ public class Cloud extends GameEntity implements Obscuring {
     final private static int MOVEMENT_TIME = 1;
     private static final SpriteGroup art = SpriteGallery.cloud;
     final private static int SPEED = 2;
-    final private TickTimer timer;
-    private final int maxFrames;
+    final private TickTimer movementTimer;
     private final TickTimer animTimer = new RepeatingTimer(12);
-    private int currentArtFrame = 1;
+    private final Animation animation;
+    /**
+     * Constructs a new Cloud at the specified position with the default animation.
+     *
+     * @param position the position that the Cloud spawns on
+     */
+    public Cloud(Positionable position, Animation animation) {
+        super(position);
+        this.animation = animation;
+        this.movementTimer = new RepeatingTimer(Cloud.MOVEMENT_TIME);
+        setSprite(this.animation.getCurrentFrame());
+    }
+
 
     /**
-     * Constructs a new Cloud at the specified position.
+     * Constructs a new Cloud at the specified position with the default animation.
      *
      * @param position the position that the Cloud spawns on
      */
     public Cloud(Positionable position) {
-        super(position);
-        this.timer = new RepeatingTimer(Cloud.MOVEMENT_TIME);
-        maxFrames = getArt().getSprites().size();
-        updateArtFrame(currentArtFrame);
+        this(position, new SingleAnimation(art));
     }
 
     /**
@@ -50,14 +58,14 @@ public class Cloud extends GameEntity implements Obscuring {
     @Override
     public void tick(EngineState state, GameState game) {
         super.tick(state, game);
-        this.animTimer.tick();
+        animTimer.tick();
 
-        if (this.animTimer.isFinished()) {
-            currentArtFrame += 1;
+        if (animTimer.isFinished()) {
+            this.animation.animate();
+            setSprite(this.animation.getCurrentFrame());
         }
-        updateArtFrame(currentArtFrame);
-        this.timer.tick();
-        if (this.timer.isFinished()) {
+        this.movementTimer.tick();
+        if (this.movementTimer.isFinished()) {
             final int movement = this.getX() - Cloud.SPEED;
             this.setX(movement);
             if (getX() < 0 || getX() > state.getDimensions().windowSize()) {
@@ -66,19 +74,4 @@ public class Cloud extends GameEntity implements Obscuring {
         }
     }
 
-    public SpriteGroup getArt() {
-        return art;
-    }
-
-    /**
-     * Updates the current frame of the sprite while ensuring that the frame is within bounds
-     * @param frame the current frame. Any values greater than the animation range are limited to the
-     *              max number of frames in the sprite group
-     */
-    public void updateArtFrame(int frame) {
-
-        frame = Integer.min(frame, maxFrames);
-        setSprite(getArt().getSprite(String.valueOf(frame)));
-
-    }
 }

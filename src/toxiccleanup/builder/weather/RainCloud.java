@@ -18,20 +18,14 @@ import toxiccleanup.builder.SpriteGallery;
  */
 public class RainCloud extends Cloud {
     final public static int SPAWN_TIME = 300;
-    private static final SpriteGroup art = SpriteGallery.raincloud;
-
+    final private static SpriteGroup art = SpriteGallery.raincloud;
     /**
      * Constructs a new RainCloud at the specified position.
      *
      * @param position the position that the RainCloud spawns on
      */
     public RainCloud(Positionable position) {
-        super(position);
+        super(position, new LoopingAnimation(art));
     }
 
-
-    @Override
-    public SpriteGroup getArt() {
-        return art;
-    }
 }
