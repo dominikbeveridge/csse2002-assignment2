@@ -26,11 +26,9 @@ public class Lightning extends GameEntity implements Damaging {
     private static final int LIFESPAN = 60;
     private final TickTimer lifespanTimer = new FixedTimer(LIFESPAN);
 
-    private final int finalAnimFrameIndex;
     private final TickTimer animTimer;
-    private int animFrame = 1;
-
     private static final SpriteGroup art = SpriteGallery.lightning;
+    private final Animation animation = new LoopingAnimation(art);
 
     /**
      * Constructs {@link Lightning} at the given position.
@@ -40,9 +38,9 @@ public class Lightning extends GameEntity implements Damaging {
     public Lightning(Positionable position) {
         super(position);
 
-        setSprite(art.getSprite(String.valueOf(animFrame)));
+        setSprite(animation.getCurrentSprite());
 
-        finalAnimFrameIndex = art.getSprites().size() - 1;
+        int finalAnimFrameIndex = art.getSprites().size() - 1;
         final int ANIM_TICK_INTERVAL = ((int) (double) (LIFESPAN / finalAnimFrameIndex));
         animTimer = new RepeatingTimer(ANIM_TICK_INTERVAL);
     }
@@ -62,7 +60,8 @@ public class Lightning extends GameEntity implements Damaging {
             markForRemoval();
         }
         if (animTimer.isFinished()) {
-            this.updateArt();
+            this.animation.animate();
+            setSprite(this.animation.getCurrentSprite());
         }
     }
 
@@ -91,19 +90,8 @@ public class Lightning extends GameEntity implements Damaging {
      * @return if the {@link Lightning} is currently in its state that would deal {@link Damage}
      */
     public boolean isDamaging() {
-        return animFrame == 5 || animFrame == 6;
+        return animation.getCurrentFrame() == 5 || animation.getCurrentFrame() == 6;
     }
 
 
-    /**
-     * Handles updating the anim to the next sprite,
-     * adjusting our internal index and resetting it to the start if we go past the final index.
-     */
-    private void updateArt() {
-        animFrame += 1;
-        if (animFrame > finalAnimFrameIndex) {
-            animFrame = 1;
-        }
-        setSprite(art.getSprite(String.valueOf(animFrame)));
-    }
 }

@@ -22,8 +22,13 @@ public class LoopingAnimation implements Animation {
     }
 
     @Override
-    public Sprite getCurrentFrame() {
+    public Sprite getCurrentSprite() {
         return art.getSprite(String.valueOf(currentFrame));
+    }
+
+    @Override
+    public int getCurrentFrame() {
+        return currentFrame;
     }
 
 

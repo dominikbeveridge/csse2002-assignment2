@@ -4,5 +4,6 @@ import toxiccleanup.engine.art.sprites.Sprite;
 
 public interface Animation {
     void animate();
-    Sprite getCurrentFrame();
+    Sprite getCurrentSprite();
+    int getCurrentFrame();
 }

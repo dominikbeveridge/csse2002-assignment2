@@ -36,7 +36,7 @@ public class Cloud extends GameEntity implements Obscuring {
         super(position);
         this.animation = animation;
         this.movementTimer = new RepeatingTimer(Cloud.MOVEMENT_TIME);
-        setSprite(this.animation.getCurrentFrame());
+        setSprite(this.animation.getCurrentSprite());
     }
 
 
@@ -62,7 +62,7 @@ public class Cloud extends GameEntity implements Obscuring {
 
         if (animTimer.isFinished()) {
             this.animation.animate();
-            setSprite(this.animation.getCurrentFrame());
+            setSprite(this.animation.getCurrentSprite());
         }
         this.movementTimer.tick();
         if (this.movementTimer.isFinished()) {

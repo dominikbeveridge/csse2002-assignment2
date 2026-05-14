@@ -24,8 +24,13 @@ public class SingleAnimation implements Animation {
      *              max number of frames in the sprite group
      */
     @Override
-    public Sprite getCurrentFrame() {
+    public Sprite getCurrentSprite() {
         int frame = Integer.min(currentFrame, maxFrames);
         return art.getSprite(String.valueOf(frame));
+    }
+
+    @Override
+    public int getCurrentFrame() {
+        return currentFrame;
     }
 }
