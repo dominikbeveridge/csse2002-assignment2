@@ -16,6 +16,8 @@ public class SingleAnimation implements Animation {
      * Constructs an instance of LoopingAnimation with the provided SpriteGroup
      *
      * @param art the SpriteGroup to be animated
+     *
+     * @requires art contains a numbered spritesheet from 1 to n
      */
     public SingleAnimation(SpriteGroup art) {
         this.art = art;
